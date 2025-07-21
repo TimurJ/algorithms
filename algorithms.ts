@@ -53,7 +53,7 @@ function sumCharCodesExponential(n: string) {
   return sum
 }
 
-// Linear Search
+// Linear Search O(N)
 function linear_search(haystack: number[], needle: number): boolean {
   for (let i = 0; i < haystack.length; i++) {
     if (haystack[i] === needle) {
@@ -64,7 +64,7 @@ function linear_search(haystack: number[], needle: number): boolean {
   return false
 }
 
-// Binary Search
+// Binary Search O(log n)
 function bs_list(haystack: number[], needle: number): boolean {
   let high = haystack.length
   let low = 0
@@ -84,7 +84,7 @@ function bs_list(haystack: number[], needle: number): boolean {
   return false
 }
 
-// Square Root of N Search
+// Square Root of N Search O(sqrt(n))
 export default function two_crystal_balls(breaks: boolean[]): number {
   const jumpAmount = Math.floor(Math.sqrt(breaks.length))
   for (let i = jumpAmount; i < breaks.length; i += jumpAmount) {
@@ -98,4 +98,20 @@ export default function two_crystal_balls(breaks: boolean[]): number {
   }
 
   return -1
+}
+
+// Bubble Sort O(N^2)
+function bubble_sort(arr: number[]): void {
+  let length = arr.length
+  while (length > 1) {
+    for (let i = 0; i < length; i++) {
+      const indexNumber = arr[i]
+      const nextNumber = arr[i + 1]
+      if (indexNumber > nextNumber) {
+        arr[i] = nextNumber
+        arr[i + 1] = indexNumber
+      }
+    }
+    length -= 1
+  }
 }
