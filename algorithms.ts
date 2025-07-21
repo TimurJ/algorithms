@@ -52,3 +52,34 @@ function sumCharCodesExponential(n: string) {
 
   return sum
 }
+
+// Linear Search
+function linear_search(haystack: number[], needle: number): boolean {
+  for (let i = 0; i < haystack.length; i++) {
+    if (haystack[i] === needle) {
+      return true
+    }
+  }
+
+  return false
+}
+
+// Binary Search
+function bs_list(haystack: number[], needle: number): boolean {
+  let high = haystack.length
+  let low = 0
+
+  while (low < high) {
+    const mid = Math.floor(low + (high - low) / 2)
+    const value = haystack[mid]
+
+    if (value === needle) {
+      return true
+    } else if (needle < haystack[mid]) {
+      high = mid - 1
+    } else {
+      low = mid + 1
+    }
+  }
+  return false
+}
