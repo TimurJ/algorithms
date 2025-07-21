@@ -1,21 +1,21 @@
-type Node<T> = {
+type QueueNode<T> = {
   value: T
-  next?: Node<T>
+  next?: QueueNode<T>
 }
 
 // This is a Queue first in first out. When we dequeue we are removing the links to the head node and assigning it to the next one.
 // When we add to the Queue we are moving the tail pointer to the newly created node and setting the next of the previous tail to point to it.
-export default class Queue<T> {
+class Queue<T> {
   public length: number
-  private head?: Node<T>
-  private tail?: Node<T>
+  private head?: QueueNode<T>
+  private tail?: QueueNode<T>
   constructor() {
     this.head = this.tail = undefined
     this.length = 0
   }
 
   enqueue(item: T): void {
-    const node = { value: item } as Node<T>
+    const node = { value: item } as QueueNode<T>
 
     this.length++
     if (!this.tail) {
@@ -42,6 +42,54 @@ export default class Queue<T> {
 
     const head = this.head
     this.head = this.head.next
+
+    return head.value
+  }
+  peek(): T | undefined {
+    return this.head?.value
+  }
+}
+
+type StackNode<T> = {
+  value: T
+  previous?: StackNode<T>
+}
+
+// This is a Stack using a singly linked list, the head is at the end of the list and you can only add and remove items onto the head/end of list.
+// When adding the previous of the new head should point to old and the head should now point to the newly added node.
+// When removing the head should point to the previous of the current head and return out the value of current head.
+class Stack<T> {
+  public length: number
+  private head?: StackNode<T>
+
+  constructor() {
+    this.head = undefined
+    this.length = 0
+  }
+
+  push(item: T): void {
+    this.length++
+    const node = { value: item } as StackNode<T>
+
+    if (!this.head) {
+      this.head = node
+      return
+    }
+
+    node.previous = this.head
+    this.head = node
+  }
+  pop(): T | undefined {
+    this.length = Math.max(0, this.length - 1)
+
+    if (this.length === 0) {
+      const head = this.head as StackNode<T>
+      this.head = undefined
+      return head?.value
+    }
+
+    const head = this.head as StackNode<T>
+    this.head = head.previous
 
     return head.value
   }
