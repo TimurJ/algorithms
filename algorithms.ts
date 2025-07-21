@@ -25,7 +25,9 @@ function sumCharCodesTwice(n: string) {
   return sum
 }
 
-function sumCharCodesTwice(n: string) {
+// Even though this loop might finish on the first character if it encounters a E, it's still O(N) because we have to look at the worst case which is a string without a E, in which case we still iterate through all the characters.
+// Constants are always dropped, if the E is N-1 so one before the end it doesn't matter the 1 gets dropped.
+function sumCharCodesUntilE(n: string) {
   let sum = 0
 
   for (let i = 0; i < n.length; i++) {
@@ -35,6 +37,17 @@ function sumCharCodesTwice(n: string) {
       return sum
     }
     sum += charCode
+  }
+
+  return sum
+}
+
+// When you have nested loops that iterate over the input the complexity grows exponentially, if you have one inner loops that is going over each character and for each character it goes over the whole string again, that's O(N^2), it grows with each inner loop O(N^3) etc.
+function sumCharCodesExponential(n: string) {
+  let sum = 0
+
+  for (let i = 0; i < n.length; i++) {
+    for (let j = 0; j < n.length; j++) sum += n.charCodeAt(j)
   }
 
   return sum
