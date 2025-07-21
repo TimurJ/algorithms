@@ -83,3 +83,19 @@ function bs_list(haystack: number[], needle: number): boolean {
   }
   return false
 }
+
+// Square Root of N Search
+export default function two_crystal_balls(breaks: boolean[]): number {
+  const jumpAmount = Math.floor(Math.sqrt(breaks.length))
+  for (let i = jumpAmount; i < breaks.length; i += jumpAmount) {
+    if (breaks[i] === true) {
+      for (let j = i - jumpAmount; j < i; j++) {
+        if (breaks[j] === true) {
+          return j
+        }
+      }
+    }
+  }
+
+  return -1
+}
